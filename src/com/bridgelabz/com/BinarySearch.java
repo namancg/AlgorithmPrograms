@@ -1,42 +1,40 @@
 package com.bridgelabz.com;
-import java.util.Arrays;
-public class BinarySearch {
+import java.util.*;
+public class BinarySearch<T extends Comparable<T>> {
 
-	public static int binarySearch(String[] a, String x) {
-        int low = 0;
-        int high = a.length - 1;
+	public int binarySearch(ArrayList<T> a, int low, int high, T searchWord) {
         int mid;
         while (low <= high) {
-            mid = (low + high) / 2;
-            if (a[mid].compareTo(x) < 0) {
-                low = mid + 1;
-            } else if (a[mid].compareTo(x) > 0) {
-                high = mid - 1;
-            } else {
+            mid = (low + (high-low)) / 2;
+            if (a.get(mid).equals(searchWord)) {
+                return mid;
+            }  if (a.get(mid).compareTo(searchWord) > 0) {
+                return binarySearch(a,low,mid-1,searchWord);
+            } {
                 return mid;
             }
         }
-
         return -1;
     }
-
-
-		 public static void main(String args[]){  
-			 String array[] ={"HELLO","EVERYONE","WELCOME","TO","PERFIOS","HAVE","A","GREAT","DAY \n "};
-			 Arrays.sort(array);
-		     for(int i=0;i<array.length;i++)
-		        {
-		        	System.out.println(array[i]);
-		        }
-		     String search = "TO";
-		     int index = binarySearch(array,search);
-		     if(index==-1)
-		     {
-		    	 System.out.println(search+" NOT FOUND");
-		     }
-		     else
-		     System.out.println(search+" is found at: "+index);
+	 public static void main(String args[]){  
+		 	 Scanner sc=new Scanner(System.in);
+		 	 BinarySearch<String> searchWord=new BinarySearch<String>();
+		 	 ArrayList<String> array=new ArrayList<String>();
+		 	 System.out.println("ENTER THE NUMBER OF WORDS");
+		 	 int size=sc.nextInt();
+		 	 System.out.print("ENTER THE WORDS");
+		 	 for(int i=0;i<size;i++)
+		 	 {
+		 		 String word=sc.next();
+		 		 array.add(word);
+		 	 }
+		 	 System.out.println("Enter the word to be searched");
+		     String wordToBeSearched=sc.next();
+		     int index=searchWord.binarySearch(array, 0, size-1, wordToBeSearched);
+		     System.out.println("IS AT:"+index);
 		     
-		 }  
+		 }
+	
+	  
 
 }
