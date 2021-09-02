@@ -1,21 +1,20 @@
 package com.bridgelabz.com;
 import java.util.*;
-public class MergeSort {
+public class MergeSort<T extends Comparable> {
+	
 	public static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
-
 		MergeSort obj = new MergeSort();
 		String[] inputArr= {"HELLO","EVERYONE","WELCOME","TO","PERFIOS","HAVE","A","GREAT","DAY"};
 		System.out.println("Before performing merge sort: "+Arrays.toString(inputArr));
 		obj.mergeSort(inputArr, 0, inputArr.length-1);
 		System.out.println("After sorting: "+Arrays.toString(inputArr));
 	}
-	void merge(String arr[], int l, int m, int r) {
-
+	void merge(T arr[], int l, int m, int r) {
 		int sizeOfLeft = m - l + 1;
 		int sizeOfRight = r - m;
-		String L[] = new String[sizeOfLeft];
-		String R[] = new String[sizeOfRight];
+		T[] L = (T[]) new Comparable[sizeOfLeft];
+		T[] R = (T[]) new Comparable[sizeOfRight];
 		for (int LIndex = 0; LIndex < sizeOfLeft; ++LIndex)
 			L[LIndex] = arr[l + LIndex];
 		for (int RIndex = 0; RIndex < sizeOfRight; ++RIndex)
@@ -46,7 +45,7 @@ public class MergeSort {
 			k++;
 		}
 	}
-	void mergeSort(String arr[], int l, int r) {
+	void mergeSort(T arr[], int l, int r) {
 		if (l < r) 
 		{
 			int m = l + (r - l) / 2;
