@@ -1,79 +1,59 @@
 package com.bridgelabz.com;
 import java.util.*;
 public class MergeSort {
-	    public static void main(String[] args) {
-	    	Scanner sc = new Scanner(System.in);
-	    	System.out.println("Enter the number of words to be added");
-	    	int size=sc.nextInt();
-	    	String[] wordArr=new String[size];
-	    	System.out.println("ENTER THE WORDS NOW");
-	        for(int i=0;i<size;i++)
-	        {
-	        	String word=sc.next();
-	        	wordArr[i]=word;
-	        }
-	            String[] sortedArray = mergeSort(wordArr);
-	            for (int i = 0; i < sortedArray.length; i++) {
-	            System.out.println(sortedArray[i] + " ");
-	            }
+	public static Scanner sc = new Scanner(System.in);
+	public static void main(String[] args) {
 
-	    }
-	    public static String[] mergeSort(String[] list) {
-	        String [] sorted = new String[list.length];
-	        if (list.length == 1) {
-	            sorted = list;
-	        } else {
-	            int mid = list.length/2;
-	            String[] left = null; 
-	            String[] right = null;
-	            if ((list.length % 2) == 0) {
-	                left = new String[list.length/2];
-	                right = new String[list.length/2];
-	            } else { 
-	                left = new String[list.length/2];
-	                right = new String[(list.length/2)+1];
-	            }
-	            int x=0;
-	            int y=0;
-	            for (;x < mid; x++) {
-	                left[x] = list[x];
-	            }
-	            for (;x < list.length; x++) {
-	                right[y++] = list[x];
-	            }
-	            left = mergeSort(left);
-	            right = mergeSort(right);
-	            sorted = mergeArray(left,right);
-	        }
+		MergeSort obj = new MergeSort();
+		String[] inputArr= {"HELLO","EVERYONE","WELCOME","TO","PERFIOS","HAVE","A","GREAT","DAY"};
+		System.out.println("Before performing merge sort: "+Arrays.toString(inputArr));
+		obj.mergeSort(inputArr, 0, inputArr.length-1);
+		System.out.println("After sorting: "+Arrays.toString(inputArr));
+	}
+	void merge(String arr[], int l, int m, int r) {
 
-	        return sorted;
-	    }
+		int sizeOfLeft = m - l + 1;
+		int sizeOfRight = r - m;
+		String L[] = new String[sizeOfLeft];
+		String R[] = new String[sizeOfRight];
+		for (int LIndex = 0; LIndex < sizeOfLeft; ++LIndex)
+			L[LIndex] = arr[l + LIndex];
+		for (int RIndex = 0; RIndex < sizeOfRight; ++RIndex)
+			R[RIndex] = arr[m + 1 + RIndex];
+		int i = 0, j = 0;
+		int k = l;
+		while (i < sizeOfLeft && j < sizeOfRight) {
+			if (L[i].compareTo(R[j]) <= 0) {
+				arr[k] = L[i];
+				i++;
+			} 
+			else 
+			{
+				arr[k] = R[j];
+				j++;
+			}
+			k++;
+		}
+		while (i < sizeOfLeft) {
+			arr[k] = L[i];
+			i++;
+			k++;
+		}
 
-	    private static String[] mergeArray(String[] left, String[] right) {
-	        String[] merged = new String[left.length+right.length];
-	        int leftIndex = 0;
-	        int rightIndex = 0;
-	        int mIndex = 0;
-	        int comp = 0;
-	        while (leftIndex < left.length || rightIndex < right.length) {
-	            if (leftIndex == left.length) {
-	                merged[mIndex++] = right[rightIndex++];
-	            } else if (rightIndex == right.length) {
-	                merged[mIndex++] = left[leftIndex++];
-	            } else {  
-	                comp = left[leftIndex].compareTo(right[rightIndex]);
-	                if (comp > 0) {
-	                    merged[mIndex++] = right[rightIndex++];
-	                } else if (comp < 0) {
-	                    merged[mIndex++] = left[leftIndex++];
-	                } else { 
-	                    merged[mIndex++] = left[leftIndex++];
-	                }
-	            }   
-	        }
-	        return merged;
-	    }
-
-
+		while (j < sizeOfRight) {
+			arr[k] = R[j];
+			j++;
+			k++;
+		}
+	}
+	void mergeSort(String arr[], int l, int r) {
+		if (l < r) 
+		{
+			int m = l + (r - l) / 2;
+			mergeSort(arr, l, m);
+			mergeSort(arr, m + 1, r);
+			merge(arr, l, m, r);
+		}
+	}
 	}
 
