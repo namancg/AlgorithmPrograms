@@ -1,6 +1,6 @@
 package com.bridgelabz.com;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class InsertionSort {
 	public static void main(String[] args){
@@ -12,14 +12,16 @@ public class InsertionSort {
 		}
 		}
 
-		public static String[] insertionsort(String array[]){
-			String temp="";
+		public static<T extends Comparable<T>> void insertionsort(T[] array)
+		{
+			int i=0;
+			T temp=array[i];
 			int f=0;
-			for(int i=0;i<f;i++)
+			for( i=0;i<f;i++)
 			{
 				for(int j=i+1;j<f;j++)
 					{
-						if(array[i].compareToIgnoreCase(array[j])>0)
+						if(array[i].compareTo(array[j])>0)
 						{
 							temp = array[i];
 							array[i]=array[j];
@@ -27,7 +29,15 @@ public class InsertionSort {
 						}
 					}
 			}
-		return array;
+		printArray(array);
+		}
+		public static <T> void printArray(T[] array)
+		{
+			int size= array.length;
+			for(int i=0;i<size;i++)
+			{
+				System.out.println(array[i]);
+			}
 		}
 
 }
